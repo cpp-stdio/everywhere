@@ -2,71 +2,71 @@ Attribute VB_Name = "Everywhere"
 Option Explicit
 '##############################################################################################################################
 '
-'   ‚¢‚Â‚Å‚àg‚¦‚é‚ªƒNƒ‰ƒX‰»‚·‚é‚Ù‚Ç‚Å‚à‚È‚¢ŠÖ”‚Ü‚Æ‚ß
-'   VBA‚Ìd—lãAƒGƒfƒBƒ^‚ÌƒRƒ“ƒ\[ƒ‹‚Éƒtƒ@ƒCƒ‹‚Å•ªŠ„‚·‚é‹@”\‚ª‚È‚¢ˆ×A
-'   ˆê‚Â‚Ìƒtƒ@ƒCƒ‹‚É‚Ü‚Æ‚ß‚Ä‚¨‚¢‚½•û‚ª—˜•Ö«‚ªã‚ª‚éB
+'   ã„ã¤ã§ã‚‚ä½¿ãˆã‚‹ãŒã‚¯ãƒ©ã‚¹åŒ–ã™ã‚‹ã»ã©ã§ã‚‚ãªã„é–¢æ•°ã¾ã¨ã‚
+'   VBAã®ä»•æ§˜ä¸Šã€ã‚¨ãƒ‡ã‚£ã‚¿ã®ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«ãƒ•ã‚¡ã‚¤ãƒ«ã§åˆ†å‰²ã™ã‚‹æ©Ÿèƒ½ãŒãªã„ç‚ºã€
+'   ä¸€ã¤ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¾ã¨ã‚ã¦ãŠã„ãŸæ–¹ãŒåˆ©ä¾¿æ€§ãŒä¸ŠãŒã‚‹ã€‚
 '
 '##############################################################################################################################
 
 '==============================================================================================================================
-'   Œ»İ‚ğ•Ô‚·
+'   ç¾åœ¨æ™‚åˆ»ã‚’è¿”ã™
 '
-'   T_Flag :  0,”N‚©‚ç•b‚Ü‚Å‚Ì‚·‚×‚Ä‚Ì (—á)2018.04.23.03.54.02
-'             1,”N‚©‚ç“ú‚Ü‚Å‚Ì“ú•t         (—á)2018.04.23
-'             2,‚©‚ç•b‚Ü‚Å‚ÌŠÔ         (—á)03.54.02
-'             3,”N‚Ì‚İ                     (—á)2018
-'             4,Œ‚Ì‚İ                     (—á)04
-'             5,“ú‚Ì‚İ                     (—á)23
-'             6,‚Ì‚İ                     (—á)03
-'             7,•ª‚Ì‚İ                     (—á)54
-'             8,•b‚Ì‚İ                     (—á)02
-'    ‚»‚êˆÈŠO,‘S‚Ä"0"‚Æ‚µ‚Äˆ—‚·‚é
-'   ToBe   : ŠÔ‚É“ü‚ê‚Ä‚Ù‚µ‚¢•¶š—ñu2018/04/23vu2018.04.23v“™ T_Flag‚Ì’l‚ª0`2‚Ì‚Ì‚İ—LŒø
+'   T_Flag :  0,å¹´ã‹ã‚‰ç§’ã¾ã§ã®ã™ã¹ã¦ã®æ™‚åˆ» (ä¾‹)2018.04.23.03.54.02
+'             1,å¹´ã‹ã‚‰æ—¥ã¾ã§ã®æ—¥ä»˜         (ä¾‹)2018.04.23
+'             2,æ™‚ã‹ã‚‰ç§’ã¾ã§ã®æ™‚é–“         (ä¾‹)03.54.02
+'             3,å¹´ã®ã¿                     (ä¾‹)2018
+'             4,æœˆã®ã¿                     (ä¾‹)04
+'             5,æ—¥ã®ã¿                     (ä¾‹)23
+'             6,æ™‚ã®ã¿                     (ä¾‹)03
+'             7,åˆ†ã®ã¿                     (ä¾‹)54
+'             8,ç§’ã®ã¿                     (ä¾‹)02
+'    ãã‚Œä»¥å¤–,å…¨ã¦"0"ã¨ã—ã¦å‡¦ç†ã™ã‚‹
+'   ToBe   : é–“ã«å…¥ã‚Œã¦ã»ã—ã„æ–‡å­—åˆ—ã€Œ2018/04/23ã€ã€Œ2018.04.23ã€ç­‰ T_Flagã®å€¤ãŒ0ï½2ã®æ™‚ã®ã¿æœ‰åŠ¹
 '==============================================================================================================================
 Public Function CurrentTime(Optional T_Flag As Long = 0, Optional ToBe As String = ".") As String
     Dim NowYear() As String
     Dim NowTime() As String
     NowYear = Split(Format(Date, "yyyy:mm:dd"), ":")
     NowTime = Split(Format(time, "hh:mm:ss"), ":")
-    If T_Flag = 1 Then     '”N‚©‚ç“ú‚Ü‚Å‚Ì“ú•t
+    If T_Flag = 1 Then     'å¹´ã‹ã‚‰æ—¥ã¾ã§ã®æ—¥ä»˜
         CurrentTime = NowYear(0) + ToBe + NowYear(1) + ToBe + NowYear(2)
-    ElseIf T_Flag = 2 Then '‚©‚ç•b‚Ü‚Å‚ÌŠÔ
+    ElseIf T_Flag = 2 Then 'æ™‚ã‹ã‚‰ç§’ã¾ã§ã®æ™‚é–“
         CurrentTime = NowTime(0) + ToBe + NowTime(1) + ToBe + NowTime(2)
-    ElseIf T_Flag = 3 Then '”N‚Ì‚İ
+    ElseIf T_Flag = 3 Then 'å¹´ã®ã¿
         CurrentTime = NowYear(0)
-    ElseIf T_Flag = 4 Then 'Œ‚Ì‚İ
+    ElseIf T_Flag = 4 Then 'æœˆã®ã¿
         CurrentTime = NowYear(1)
-    ElseIf T_Flag = 5 Then '“ú‚Ì‚İ
+    ElseIf T_Flag = 5 Then 'æ—¥ã®ã¿
         CurrentTime = NowYear(2)
-    ElseIf T_Flag = 6 Then '‚Ì‚İ
+    ElseIf T_Flag = 6 Then 'æ™‚ã®ã¿
         CurrentTime = NowTime(0)
-    ElseIf T_Flag = 7 Then '•ª‚Ì‚İ
+    ElseIf T_Flag = 7 Then 'åˆ†ã®ã¿
         CurrentTime = NowTime(1)
-    ElseIf T_Flag = 8 Then '•b‚Ì‚İ
+    ElseIf T_Flag = 8 Then 'ç§’ã®ã¿
         CurrentTime = NowTime(2)
-    Else                 '0‚ğŠÜ‚ß‚»‚êˆÈŠO
+    Else                 '0ã‚’å«ã‚ãã‚Œä»¥å¤–
         CurrentTime = NowYear(0) + ToBe + NowYear(1) + ToBe + NowYear(2) + ToBe + NowTime(0) + ToBe + NowTime(1) + ToBe + NowTime(2)
     End If
 End Function
 '==============================================================================================================================
-'   •¶š‚Ì’†‚É‚ ‚éA“Á’è‚Ì•¶š—ñ‚©‚ç“Á’è‚Ì•¶š—ñ‚Ü‚Å‚ğæ“¾‚·‚é
-'   –ß‚è’l : •ªŠ„‚µ‚½•¶š—ñASplit‚Æ–¼‚ª‚ ‚é‚ªspecificA‚ÆspecificB‚à‘}“ü‚³‚ê‚é‚Ì‚Å’ˆÓB
+'   æ–‡å­—ã®ä¸­ã«ã‚ã‚‹ã€ç‰¹å®šã®æ–‡å­—åˆ—ã‹ã‚‰ç‰¹å®šã®æ–‡å­—åˆ—ã¾ã§ã‚’å–å¾—ã™ã‚‹
+'   æˆ»ã‚Šå€¤ : åˆ†å‰²ã—ãŸæ–‡å­—åˆ—ã€Splitã¨åãŒã‚ã‚‹ãŒspecificAã¨specificBã‚‚æŒ¿å…¥ã•ã‚Œã‚‹ã®ã§æ³¨æ„ã€‚
 '
-'   text      : ‚Æ‚ ‚é•¶š—ñ
-'   specificA : 1‚Â–Ú‚Ì“Á’è‚Ì•¶š—ñ
-'   specificB : 2‚Â–Ú‚Ì“Á’è‚Ì•¶š—ñ
+'   text      : ã¨ã‚ã‚‹æ–‡å­—åˆ—
+'   specificA : 1ã¤ç›®ã®ç‰¹å®šã®æ–‡å­—åˆ—
+'   specificB : 2ã¤ç›®ã®ç‰¹å®šã®æ–‡å­—åˆ—
 '==============================================================================================================================
 Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, ByVal specificB As String) As String()
     Dim returnLength As Long: returnLength = 0
     Dim returnString() As String
     ReDim returnString(returnLength)
-    'ƒGƒ‰[‘Î‰‚Ì‚½‚ß–ß‚è’l‚ğ‰Šú‰»
+    'ã‚¨ãƒ©ãƒ¼å¯¾å¿œã®ãŸã‚æˆ»ã‚Šå€¤ã‚’åˆæœŸåŒ–
     BetweenSplit = returnString
-    '‹ó”’‚Ì‘}“ü‚ğŠm”F
+    'ç©ºç™½ã®æŒ¿å…¥ã‚’ç¢ºèª
     If StrComp(text, "", vbBinaryCompare) = 0 Then Exit Function
     If StrComp(specificA, "", vbBinaryCompare) = 0 Then Exit Function
     If StrComp(specificB, "", vbBinaryCompare) = 0 Then Exit Function
-    '“¯‚¶•¶š—ñ‚È‚ç—p“r‚ªˆá‚¤ˆ×
+    'åŒã˜æ–‡å­—åˆ—ãªã‚‰ç”¨é€”ãŒé•ã†ç‚º
     If StrComp(specificA, specificB, vbBinaryCompare) = 0 Then
         BetweenSplit = Split(text, specificA)
         Exit Function
@@ -77,10 +77,10 @@ Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, By
     Dim count1 As Long: count1 = 0
     Dim count2 As Long: count2 = 0
     '------------------------------
-    ' "specificA" ‚Ìˆ—
+    ' "specificA" å´ã®å‡¦ç†
     '------------------------------
     textArray1 = Split(text, specificA)
-    '”z—ñ”‚ª0ˆÈ‰º‚Ìê‡˜b‚ªˆá‚¤
+    'é…åˆ—æ•°ãŒ0ä»¥ä¸‹ã®å ´åˆè©±ãŒé•ã†
     If UBound(textArray1) <= 0 Then
         BetweenSplit = textArray1
         Exit Function
@@ -89,7 +89,7 @@ Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, By
     For count1 = 0 To UBound(textArray1)
         If Not StrComp(textArray1(count1), "", vbBinaryCompare) = 0 Then
             If count1 = 0 Then
-                returnString(returnLength) = textArray1(0) '0”Ô–Ú‚ÍŠ®¬
+                returnString(returnLength) = textArray1(0) '0ç•ªç›®ã¯å®Œæˆ
                 returnLength = returnLength + 1
             Else
                 textArray1(count1) = specificA + textArray1(count1)
@@ -97,7 +97,7 @@ Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, By
         End If
     Next count1
     '------------------------------
-    ' "specificB" ‚Ìˆ—
+    ' "specificB" å´ã®å‡¦ç†
     '------------------------------
     Dim Body As String
     For count1 = 1 To UBound(textArray1)
@@ -126,13 +126,13 @@ Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, By
     BetweenSplit = returnString
 End Function
 '==============================================================================================================================
-'   SplitŠÖ”‚Ì•¡””Å
+'   Splité–¢æ•°ã®è¤‡æ•°ç‰ˆ
 '
-'   delimiters : –{‰Æ‚Æ‚Íˆá‚¢AOptionalŒ^‚Å‚È‚¢A”z—ñ‚Å‚È‚¢‚ÆƒGƒ‰[o‚é‚Ì‚Å’ˆÓ
-'   min        : delimiters‚Ì‚Ç‚ÌˆÊ’u‚©‚ç‹æØ‚è‚·‚é‚Ì‚© : •‰‚Ì”AdelimitersˆÈã‚ÍƒGƒ‰[
-'   max        : delimiters‚Ì‚Ç‚ÌˆÊ’u‚Ü‚Å‹æØ‚è‚·‚é‚Ì‚© : •‰‚Ì”‚Í‘S‚Ä‹æØ‚éAdelimitersˆÈã‚Å‚à‘S‚Ä‹æØ‚é
+'   delimiters : æœ¬å®¶ã¨ã¯é•ã„ã€Optionalå‹ã§ãªã„ã€é…åˆ—ã§ãªã„ã¨ã‚¨ãƒ©ãƒ¼å‡ºã‚‹ã®ã§æ³¨æ„
+'   min        : delimitersã®ã©ã®ä½ç½®ã‹ã‚‰åŒºåˆ‡ã‚Šã™ã‚‹ã®ã‹ : è² ã®æ•°ã€delimitersä»¥ä¸Šã¯ã‚¨ãƒ©ãƒ¼
+'   max        : delimitersã®ã©ã®ä½ç½®ã¾ã§åŒºåˆ‡ã‚Šã™ã‚‹ã®ã‹ : è² ã®æ•°ã¯å…¨ã¦åŒºåˆ‡ã‚‹ã€delimitersä»¥ä¸Šã§ã‚‚å…¨ã¦åŒºåˆ‡ã‚‹
 '
-'   ‚»‚Ì‘¼Aˆø”‚Ìà–¾‚Í‰º‹LURL‚ğQÆ
+'   ãã®ä»–ã€å¼•æ•°ã®èª¬æ˜ã¯ä¸‹è¨˜URLã‚’å‚ç…§
 '   https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/split-function
 '==============================================================================================================================
 Public Function Splits(ByVal expression As String, delimiters() As String, Optional ByVal limit As Long = -1, Optional ByVal compare As VbCompareMethod = vbBinaryCompare, Optional ByVal min As Long = 0, Optional ByVal max As Long = -1) As String()
@@ -147,7 +147,7 @@ Public Function Splits(ByVal expression As String, delimiters() As String, Optio
     Dim textCount As Long, textArray() As String
     Dim bodyCount As Long, bodyArray() As String
     Dim limitCount As Long, limitString As String
-    '-1‚Ì•”•ª‚Ílimit‚È‚Ì‚Å‚±‚ê‚Å—Ç‚¢
+    '-1ã®éƒ¨åˆ†ã¯limitãªã®ã§ã“ã‚Œã§è‰¯ã„
     textArray = Split(expression, delimiters(min), -1, compare)
     Splits = textArray
     If min = max Then Exit Function
@@ -155,7 +155,7 @@ Public Function Splits(ByVal expression As String, delimiters() As String, Optio
     
     For textCount = 0 To UBound(textArray)
         If Not StrComp(textArray(textCount), "", vbBinaryCompare) = 0 Then
-            '-1‚Ì•”•ª‚Ílimit‚È‚Ì‚Å‚±‚ê‚Å—Ç‚¢
+            '-1ã®éƒ¨åˆ†ã¯limitãªã®ã§ã“ã‚Œã§è‰¯ã„
             bodyArray = Splits(textArray(textCount), delimiters, -1, compare, min + 1, max)
             For bodyCount = 0 To UBound(bodyArray)
                 If Not StrComp(bodyArray(bodyCount), "", vbBinaryCompare) = 0 Then
@@ -181,12 +181,12 @@ Public Function Splits(ByVal expression As String, delimiters() As String, Optio
 End Function
 '******************************************************************************************************************************
 '
-'   ƒNƒŠƒbƒvƒ{[ƒhŠÖ˜A
-'   g—p‚·‚é‚É‚ÍAuMicrosoft Forms 2.0 Object Libraryv‚ğQÆİ’è‚µ‚Ü‚·B
+'   ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰é–¢é€£
+'   ä½¿ç”¨ã™ã‚‹ã«ã¯ã€ã€ŒMicrosoft Forms 2.0 Object Libraryã€ã‚’å‚ç…§è¨­å®šã—ã¾ã™ã€‚
 '
 '******************************************************************************************************************************
 
-' ƒNƒŠƒbƒvƒ{[ƒh‚É•¶š—ñ‚ğİ’è‚·‚éB
+' ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«æ–‡å­—åˆ—ã‚’è¨­å®šã™ã‚‹ã€‚
 Public Function SetClipboard_Text(ByVal text As String)
     If StrComp(text, "", vbBinaryCompare) = 0 Then Exit Function
     With New MSForms.DataObject
@@ -195,7 +195,7 @@ Public Function SetClipboard_Text(ByVal text As String)
     End With
 End Function
 
-' ƒNƒŠƒbƒvƒ{[ƒh‚©‚ç•¶š—ñ‚ğæ“¾‚·‚éB
+' ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã‹ã‚‰æ–‡å­—åˆ—ã‚’å–å¾—ã™ã‚‹ã€‚
 Public Function GetClipboard_Text() As String
     Dim text As String: text = ""
     With New MSForms.DataObject
@@ -206,11 +206,11 @@ Public Function GetClipboard_Text() As String
 End Function
 '******************************************************************************************************************************
 '
-'   ƒV[ƒgŠÖ˜AŠÖ”
+'   ã‚·ãƒ¼ãƒˆé–¢é€£é–¢æ•°
 '
 '******************************************************************************************************************************
 
-'ƒV[ƒg‚Ì‘¶İŠm”FA‚È‚¯‚ê‚Î(Nothing)
+'ã‚·ãƒ¼ãƒˆã®å­˜åœ¨ç¢ºèªã€ãªã‘ã‚Œã°(Nothing)
 Public Function searchSheet(ByVal sheetName As String) As Worksheet
     Set searchSheet = Nothing
     Dim sheet As Worksheet
@@ -223,18 +223,18 @@ Public Function searchSheet(ByVal sheetName As String) As Worksheet
     Set sheet = Nothing
 End Function
 
-'–ß‚è’lAOK(True),NG(False)F2010‚Ìê‡
+'æˆ»ã‚Šå€¤ã€OK(True),NG(False)ï¼š2010ã®å ´åˆ
 Public Function checkSheetName(ByVal sheetName As String) As Boolean
     checkSheetName = False
     If StrComp(sheetName, "", vbBinaryCompare) = 0 Then Exit Function
-    'ƒV[ƒg–¼‚ÉŠÜ‚ñ‚Å‚Í‚¢‚¯‚È‚¢•¶š—ñ
+    'ã‚·ãƒ¼ãƒˆåã«å«ã‚“ã§ã¯ã„ã‘ãªã„æ–‡å­—åˆ—
     Dim textFor As Variant
     For Each textFor In Array(":", "\", "/", "?", "*", "[", "]")
         If InStr(sheetName, CStr(textFor)) > 0 Then Exit Function
     Next textFor
-    '•¶š—ñ‚Í31•¶š‚¢‚È‚¢B
+    'æ–‡å­—åˆ—ã¯31æ–‡å­—ã„ãªã„ã€‚
     If Len(sheetName) > 31 Then Exit Function
-    '“¯‚¶–¼‘O‚ÌƒV[ƒg‚Í‘¶İ‚µ‚Ä‚Í‚È‚ç‚È‚¢B
+    'åŒã˜åå‰ã®ã‚·ãƒ¼ãƒˆã¯å­˜åœ¨ã—ã¦ã¯ãªã‚‰ãªã„ã€‚
     Dim sheet As Worksheet
     Set sheet = searchSheet(sheetName)
     If Not sheet Is Nothing Then
@@ -244,7 +244,7 @@ Public Function checkSheetName(ByVal sheetName As String) As Boolean
     checkSheetName = True
 End Function
 
-'V‚½‚ÈƒV[ƒg‚ğì¬Bì¬‚Å‚«‚È‚¯‚ê‚Î(Nothing)
+'æ–°ãŸãªã‚·ãƒ¼ãƒˆã‚’ä½œæˆã€‚ä½œæˆã§ããªã‘ã‚Œã°(Nothing)
 Public Function aNewSheet(ByVal sheetName As String) As Worksheet
     Set aNewSheet = Nothing
     
@@ -259,17 +259,17 @@ Public Function aNewSheet(ByVal sheetName As String) As Worksheet
     
     Set sheet = Worksheets.Add()
     sheet.name = sheetName
-    sheet.Activate 'ƒAƒNƒeƒBƒu‰»‚µ‚Ä‚¨‚¢‚½•û‚ªŒ©‚½–Ú‚Í—Ç‚¢B
+    sheet.Activate 'ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–ã—ã¦ãŠã„ãŸæ–¹ãŒè¦‹ãŸç›®ã¯è‰¯ã„ã€‚
     Set aNewSheet = sheet
 End Function
 '==============================================================================================================================
 '
-'   ”’l‚ğ”»’è
-'   –ß‚è’l : ‚Í‚¢(true),‚¢‚¢‚¦(false)
+'   æ•°å€¤ã‚’åˆ¤å®š
+'   æˆ»ã‚Šå€¤ : ã¯ã„(true),ã„ã„ãˆ(false)
 '
-'   text  : ”»’è—p‚Ì”’l
-'   value : ””’l‚Ì“ü‚Á‚½”’lŒ^(Long,Double)‚Ì‚Ç‚¿‚ç‚©AƒGƒ‰[‚Ìê‡‚ÍEmpty‚ª“ü‚é
-'           ÅI“I‚É‚ÍŒ^‚Ì”»’è‚ª—v‚è‚Ü‚·B«QlURLF—á¨ If VarType(value) = vbLong Then
+'   text  : åˆ¤å®šç”¨ã®æ•°å€¤
+'   value : æ•°æ•°å€¤ã®å…¥ã£ãŸæ•°å€¤å‹(Long,Double)ã®ã©ã¡ã‚‰ã‹ã€ã‚¨ãƒ©ãƒ¼ã®å ´åˆã¯EmptyãŒå…¥ã‚‹
+'           æœ€çµ‚çš„ã«ã¯å‹ã®åˆ¤å®šãŒè¦ã‚Šã¾ã™ã€‚â†“å‚è€ƒURLï¼šä¾‹â†’ If VarType(value) = vbLong Then
 '           http://officetanaka.net/excel/vba/function/VarType.htm
 '
 '==============================================================================================================================
@@ -291,16 +291,16 @@ Public Function checkNumericalValue(ByVal text As String, ByRef value As Variant
 End Function
 '******************************************************************************************************************************
 '
-'   ƒtƒ@ƒCƒ‹EƒtƒHƒ‹ƒ_[ŠÖ˜A
+'   ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼é–¢é€£
 '
 '******************************************************************************************************************************
 
 '==============================================================================================================================
-'   ƒtƒ@ƒCƒ‹“Ç‚İ‚İA‚ ‚é’ö“x‚Ì•¶šƒR[ƒh‚É‘Î‰‚µ‚Ä‚¢‚éB
-'   –ß‚è’l : ‚»‚Ì“Ç‚İ‚ñ‚¾ƒtƒ@ƒCƒ‹‚Ì•¶š—ñ: ƒGƒ‰[‚Ìê‡‚Í‹ó”’
+'   ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã€ã‚ã‚‹ç¨‹åº¦ã®æ–‡å­—ã‚³ãƒ¼ãƒ‰ã«å¯¾å¿œã—ã¦ã„ã‚‹ã€‚
+'   æˆ»ã‚Šå€¤ : ãã®èª­ã¿è¾¼ã‚“ã ãƒ•ã‚¡ã‚¤ãƒ«ã®æ–‡å­—åˆ—: ã‚¨ãƒ©ãƒ¼ã®å ´åˆã¯ç©ºç™½
 '
-'   fileName       : ƒtƒ‹ƒpƒX
-'   characterCord  : •¶šƒR[ƒhw’è(”CˆÓ) , ‰Šú’l(Shift_JIS),(”ñ„§F_autodetect_all)
+'   fileName       : ãƒ•ãƒ«ãƒ‘ã‚¹
+'   characterCord  : æ–‡å­—ã‚³ãƒ¼ãƒ‰æŒ‡å®š(ä»»æ„) , åˆæœŸå€¤(Shift_JIS),(éæ¨å¥¨ï¼š_autodetect_all)
 '==============================================================================================================================
 Public Function readFile(ByVal fileName As String, Optional ByVal characterCord As String = "Shift_JIS") As String
     readFile = ""
@@ -318,26 +318,26 @@ On Error GoTo ErrorHandler
         .Close
     End With
     
-    readFile = Body 'Œ´•¶•Û
+    readFile = Body 'åŸæ–‡ä¿æŒ
     Exit Function
 ErrorHandler:
     readFile = ""
     Exit Function
 End Function
 '==============================================================================================================================
-'   ƒtƒ@ƒCƒ‹‘‚«‚İA‚ ‚é’ö“x‚Ì•¶šƒR[ƒh‚É‘Î‰‚µ‚Ä‚¢‚éB
-'   –ß‚è’l : ¬Œ÷(True),¸”s(False)
+'   ãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãè¾¼ã¿ã€ã‚ã‚‹ç¨‹åº¦ã®æ–‡å­—ã‚³ãƒ¼ãƒ‰ã«å¯¾å¿œã—ã¦ã„ã‚‹ã€‚
+'   æˆ»ã‚Šå€¤ : æˆåŠŸ(True),å¤±æ•—(False)
 '
-'   text           : •Û‘¶—p‚Ì•¶š—ñ
-'   fileName       : ƒtƒ‹ƒpƒX
-'   characterCord  : •¶šƒR[ƒhw’è(”CˆÓ) , ‰Šú’l(Shift_JIS)
-'   addFlag        : ƒtƒ@ƒCƒ‹‚ª‚ ‚éê‡A’Ç‰Á‚Å‘‚«‚Ş , ‰Šú’l(‘‚«‚Ü‚È‚¢)
+'   text           : ä¿å­˜ç”¨ã®æ–‡å­—åˆ—
+'   fileName       : ãƒ•ãƒ«ãƒ‘ã‚¹
+'   characterCord  : æ–‡å­—ã‚³ãƒ¼ãƒ‰æŒ‡å®š(ä»»æ„) , åˆæœŸå€¤(Shift_JIS)
+'   addFlag        : ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹å ´åˆã€è¿½åŠ ã§æ›¸ãè¾¼ã‚€ , åˆæœŸå€¤(æ›¸ãè¾¼ã¾ãªã„)
 '==============================================================================================================================
 Public Function writeFile(ByRef text As String, ByVal fileName As String, Optional ByVal characterCord As String = "Shift_JIS", Optional ByVal addFlag As Boolean = False) As Boolean
     writeFile = False
-    '‘‚«‚Şƒf[ƒ^‚ª–³‚¢ê‡B
+    'æ›¸ãè¾¼ã‚€ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã„å ´åˆã€‚
     If StrComp(text, "", vbBinaryCompare) = 0 Then Exit Function
-    '’Ç‰Á‚Å‘‚«‚Ş‚½‚ß‚ÌŠm”F–€
+    'è¿½åŠ ã§æ›¸ãè¾¼ã‚€ãŸã‚ã®ç¢ºèªäº‹é …
     If addFlag Then
         If Not Dir(fileName) <> "" Then
             addFlag = False
