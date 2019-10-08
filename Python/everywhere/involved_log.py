@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
-
-import time
+"""ファイル関連(involved_file)
+    
+    Created on Thu Jan 24 10:10:43 2019
+    Updated on Tue Oct 08 15:56:00 2019
+     
+    * ログを出力します。不具合の解析又は単体テストにも使用できます。
+    * Output log and can use for debug or unit test.
+    
+Examples:
+    logs = everywhere.log.log('C:\\Users\\Public\\test', mode = everywhere.log.modeType.debug, autoSave = True)
+    
+    # autoSaveの値がTrueの場合、必ずデストラクタを呼んで下さい。
+    # if autoSave of True so you must to call destructor.
+    del logs
+"""
 import threading
 import datetime
 from enum import Enum
@@ -13,11 +26,11 @@ import involved_file
 import involved_other
 
 class modeType(Enum):
-    debug = 0     # デバック用
-    release = 1   # リリース用
+    debug = 0
+    release = 1
     tool = -0xFF  # ツール専用で、デバックとかリリースとかの概念が存在しないモード
 
-class debugLog:
+class log:
     
     def __init__(self,filePath : str, mode = modeType.debug, autoSave = False):
         '''
@@ -26,18 +39,23 @@ class debugLog:
         Parameters
         ----------
         filePath : str
-            保存する、ファイルパス。
+            保存するファイルパス
+            It's file path to save.
+            
         mode : modeType
             モードによるログの制御
+            operation control to logs
+            
         autoSve : bool
             自動保存を実行するか、はい(True),いいえ(False)
+            Do you save automatically? Yes(True),No(False)
         '''
         self.__texts = []
         self.__filePath = filePath
         self.__mode = mode
         self.__autoSave = autoSave
         #自動保存を実行する
-        if self.__autoSave:
+        if self.__conditions():
             self.__thread = threading.Thread(target = self.__autoSaveFunction)
             self.__thread
             self.__thread.start()
@@ -48,6 +66,7 @@ class debugLog:
     def release(self):
         '''
         自動保存機能をONにした場合は必ず呼んで下さい。
+        if autoSave of True so you must to call
         '''
         if self.__autoSave:
             self.__autoSave = False
@@ -56,15 +75,14 @@ class debugLog:
         
     def add(self,message : str):
         '''
-        ファイル、関数、行番号を取得した後、ログに書き込む
+        ログに書き込む
+        It's add to log
         
         Parameters
         ----------
         message : str
             プログラムからのメッセージ
-        location : str
-            ファイル、関数、行番号を取得関数を動かす為、引数に入れているだけで、
-            常時、未入力で良い。
+            It's message from program
         '''
         if self.__mode == modeType.release: return
         self.__texts.append(message + '\n')
@@ -72,12 +90,15 @@ class debugLog:
     def save(self, fileName = ''):
         '''
         ログを保存する、保存文字コードは'utf-8'
+        It's save logs, character code is 'utf-8'
         
         Parameters
         ----------
         fileName : str
             保存するファイル名を変更したい場合、ファイル名を入力
+            If you want to change the file name to save.
             未入力の場合は、self.__filePathに登録している階層に'yyyy-mm-dd-hh-mm-ss.xxx.log'で保存される。
+            If not entering, 'self.__filePath' registration hierarchy for name 'yyyy-mm-dd-hh-mm-ss.xxx.log' to save.
         '''
         if self.__mode == modeType.release: return
         
@@ -93,13 +114,14 @@ class debugLog:
     def __autoSaveFunction(self):
         '''
         自動保存
+        It's auto save
         '''
-        while(self.conditions()):
+        while(self.__conditions()):
             try:
                 #30秒くらい待つ
                 involved_other.sleep(30.0)
                 #スリーブした後なのでもう一回条件を調べる
-                if not self.conditions(): break
+                if not self.__conditions(): break
                 #保存処理開始
                 fileName = self.__filePath +'\\autoseve'
                 if involved_file.createFolder(fileName):
@@ -112,12 +134,14 @@ class debugLog:
         #確定でこの変数をFalseにする為
         self.__autoSave = False
         
-    def conditions(self) -> bool:
+    def __conditions(self) -> bool:
         '''
         自動保存内にて下記の条件に当てはまっていれば即終了する
+        If the following conditions are met in auto save, it will end at once.
         '''
         try:
             if not self.__autoSve: return False
+            if self.__mode == modeType.tool: return False
             if self.__mode == modeType.release: return False
             if not self.__filePath: return False
         except:
@@ -127,6 +151,7 @@ class debugLog:
     def delete(self):
         '''
         メモリに大量にメッセージを残すのは危険な気もする為のログ情報の削除を行う
+        delete logs, that's dangerous to use much memory.
         '''
         self.text = []
         
