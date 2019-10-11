@@ -59,6 +59,8 @@ class log:
             self.__thread = threading.Thread(target = self.__autoSaveFunction)
             self.__thread
             self.__thread.start()
+        else:
+            self.__autoSave = False
         
     def __delete__(self):
         self.release()
