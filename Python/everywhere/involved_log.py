@@ -155,7 +155,7 @@ class log:
         メモリに大量にメッセージを残すのは危険な気もする為のログ情報の削除を行う
         delete logs, that's dangerous to use much memory.
         '''
-        self.text = []
+        self.__texts = []
         
     #--------------------------------------------------------------
     #   GET & SET
