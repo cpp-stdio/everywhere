@@ -23,7 +23,7 @@ Examples:
     everywhere.file.createFolder('C:\\Users\\Public\\test')
 """
 from everywhere import involved_file as file
-from everywhere import involved_log as log
 from everywhere import involved_other as other
 from everywhere import involved_search as search
 from everywhere import involved_thread as thread
+from everywhere import involved_log as log

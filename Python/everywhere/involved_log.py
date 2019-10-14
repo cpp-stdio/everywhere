@@ -19,11 +19,8 @@ import datetime
 from enum import Enum
 
 #自身のディレクトリを表示する
-import sys,pathlib
-__directoryName = str(pathlib.Path(__file__).resolve().parent)
-sys.path.append(__directoryName)
-import involved_file
-import involved_other
+from everywhere import involved_file
+from everywhere import involved_other
 
 class modeType(Enum):
     debug = 0

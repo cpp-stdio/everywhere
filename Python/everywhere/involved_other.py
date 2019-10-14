@@ -52,7 +52,7 @@ def is_value(textStr : str):
         return True,i
     except:
         try:
-            f = float(textStr)
+            f = float(textStr)            
             return True,f
         except:
             try:
