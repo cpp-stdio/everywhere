@@ -62,7 +62,7 @@ def is_value(textStr : str):
                 return False,textStr
     return False,textStr#要らな気がするが一応...
 
-def sleep(Second : float):
+def sleep(second : float):
     '''wait
     Python既存のsleep関数をマルチスレッドで呼んだ場合、
     なぜか、シングルスレッドの方にも影響が出てしまう。
@@ -70,10 +70,10 @@ def sleep(Second : float):
     
     Parameters
     ----------
-    Second : float
+    second : float
         停止時間（秒）
     '''
     start = time.time()
     while(True): 
-        if time.time() - start <= Second: return
+        if time.time() - start <= second: return
     
