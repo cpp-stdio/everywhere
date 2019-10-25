@@ -1,51 +1,40 @@
-VERSION 1.0 CLASS
-BEGIN
-  MultiUse = -1  'True
-END
-Attribute VB_Name = "OpenBook"
-Attribute VB_GlobalNameSpace = False
-Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
 Option Explicit
 '------------------------------------------------------------------------------------------------------------------------------
 '
-'   XLSM,XLSX,XLS“™AŠî–{“I‚ÈƒGƒNƒZƒ‹ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚·B
-'   ÅIŠm”F : Office Professional Plus 2010 , 14.0.7145.5000(32ƒrƒbƒg)
+'   XLSM,XLSX,XLSç­‰ã€åŸºæœ¬çš„ãªã‚¨ã‚¯ã‚»ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã™ã€‚
+'   æœ€çµ‚ç¢ºèª : Office Professional Plus 2010 , 14.0.7145.5000(32ãƒ“ãƒƒãƒˆ)
 '
 '------------------------------------------------------------------------------------------------------------------------------
 Private Type sheet
-    work As Worksheet   'ƒV[ƒg‚Ì‘S‘Ìî•ñ
-    name As String      'ƒV[ƒg‚Ì–¼‘O
-    cordName As String  'ƒV[ƒg‚ÌƒR[ƒh–¼
+    work As Worksheet   'ã‚·ãƒ¼ãƒˆã®å…¨ä½“æƒ…å ±
+    name As String      'ã‚·ãƒ¼ãƒˆã®åå‰
+    cordName As String  'ã‚·ãƒ¼ãƒˆã®ã‚³ãƒ¼ãƒ‰å
 End Type
 
-Dim book As Workbook     'ƒuƒbƒNƒf[ƒ^
-Dim bookName As String   'ƒuƒbƒNƒf[ƒ^‚Ì–¼‘O
-Dim shareFlag As Boolean '‹¤—Lƒ‚[ƒh‚Ì—v”Û(—v(True)A”Û(False))
-Dim sheets() As sheet    'ƒV[ƒg
-Dim sheetLength As Long  'ƒV[ƒg‚ÌŒÂ”
+Dim book As Workbook     'ãƒ–ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿
+Dim bookName As String   'ãƒ–ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã®åå‰
+Dim shareFlag As Boolean 'å…±æœ‰ãƒ¢ãƒ¼ãƒ‰ã®è¦å¦(è¦(True)ã€å¦(False))
+Dim sheets() As sheet    'ã‚·ãƒ¼ãƒˆ
 '------------------------------------------------------------------------------------------------------------------------------
-'   ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+'   ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 '------------------------------------------------------------------------------------------------------------------------------
 Private Sub Class_Initialize()
     Set book = Nothing
     shareFlag = False
     ReDim sheets(0)
-    sheetLength = 0
 End Sub
 '------------------------------------------------------------------------------------------------------------------------------
-'   ƒfƒXƒgƒ‰ƒNƒ^
+'   ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 '------------------------------------------------------------------------------------------------------------------------------
 Private Sub Class_Terminate()
     Call CloseFile
 End Sub
 '------------------------------------------------------------------------------------------------------------------------------
-'   ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“ : ŠJ‚¯‚½(True)ŠJ‚¯‚È‚©‚Á‚½(False)
+'   ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³ : é–‹ã‘ãŸ(True)é–‹ã‘ãªã‹ã£ãŸ(False)
 '------------------------------------------------------------------------------------------------------------------------------
 Public Function OpenFile(fileNamePath As String, Optional PasswordOrKey As String = "") As Boolean
-    'ƒtƒ@ƒCƒ‹‚Ì‘¶İƒ`ƒFƒbƒN
-    bookName = Dir(fileNamePath) 'ƒuƒbƒN‚Ì–¼‘O‚ğæ“¾
+    'ãƒ•ã‚¡ã‚¤ãƒ«ã®å­˜åœ¨ãƒã‚§ãƒƒã‚¯
+    bookName = Dir(fileNamePath) 'ãƒ–ãƒƒã‚¯ã®åå‰ã‚’å–å¾—
     If Not bookName <> "" Then
         bookName = ""
         OpenFile = False
@@ -53,7 +42,7 @@ Public Function OpenFile(fileNamePath As String, Optional PasswordOrKey As Strin
     End If
     
     
-    '“¯‚¶ƒuƒbƒN‚ğŠJ‚¢‚Ä‚¢‚éê‡‚ÍA‚»‚ÌƒuƒbƒN‚ğg—p‚·‚éB
+    'åŒã˜ãƒ–ãƒƒã‚¯ã‚’é–‹ã„ã¦ã„ã‚‹å ´åˆã¯ã€ãã®ãƒ–ãƒƒã‚¯ã‚’ä½¿ç”¨ã™ã‚‹ã€‚
     Dim BookFlag As Boolean: BookFlag = False
     For Each book In Workbooks
         If StrComp(book.name, bookName, vbBinaryCompare) = 0 Then
@@ -62,23 +51,23 @@ Public Function OpenFile(fileNamePath As String, Optional PasswordOrKey As Strin
         End If
     Next
      
-On Error GoTo ErrorHandler '‰º‹L‚ÅƒGƒ‰[‚ª”­¶‚·‚é‚½‚ß
+On Error GoTo ErrorHandler 'ä¸‹è¨˜ã§ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã™ã‚‹ãŸã‚
 
     If Not BookFlag Then
-        'ƒGƒNƒZƒ‹î•ñæ“¾
+        'ã‚¨ã‚¯ã‚»ãƒ«æƒ…å ±å–å¾—
         Set book = Nothing
-        'ƒpƒXƒ[ƒh‚ªŠ|‚©‚Á‚Ä‚¢‚½ê‡‚Ìˆ—
+        'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒæ›ã‹ã£ã¦ã„ãŸå ´åˆã®å‡¦ç†
         If StrComp(PasswordOrKey, "", vbBinaryCompare) = 0 Then
             Set book = Workbooks.Open(fileNamePath, 3)
         Else
             Workbooks.Open fileName:=fileNamePath, ReadOnly:=False, password:=PasswordOrKey, _
                            WriteResPassword:=PasswordOrKey, IgnoreReadOnlyRecommended:=True
             
-            Application.Wait Now + TimeValue("0:00:03") '”O‚Ì‚½‚ßŠJ‚«I‚í‚é‚Ì‚ğ‘Ò‚Â
+            Application.Wait Now + TimeValue("0:00:03") 'å¿µã®ãŸã‚é–‹ãçµ‚ã‚ã‚‹ã®ã‚’å¾…ã¤
             Set book = Application.ActiveWorkbook
         End If
     End If
-    '‹¤—Lƒ‚[ƒh‚È‚Ì‚©‚ğŠm”F
+    'å…±æœ‰ãƒ¢ãƒ¼ãƒ‰ãªã®ã‹ã‚’ç¢ºèª
     shareFlag = book.MultiUserEditing
     If shareFlag Then
         'Application.DisplayAlerts = False
@@ -86,8 +75,8 @@ On Error GoTo ErrorHandler '‰º‹L‚ÅƒGƒ‰[‚ª”­¶‚·‚é‚½‚ß
         'Application.DisplayAlerts = True
     End If
     
-    'ƒV[ƒgî•ñ‚Ìæ“¾
-    sheetLength = book.Worksheets.count
+    'ã‚·ãƒ¼ãƒˆæƒ…å ±ã®å–å¾—
+    Dim sheetLength As Long: sheetLength = book.Worksheets.count
     ReDim sheets(sheetLength - 1)
     
     Dim i As Long
@@ -103,23 +92,23 @@ ErrorHandler:
 End Function
 
 '------------------------------------------------------------------------------------------------------------------------------
-'   ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+'   ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ­ãƒ¼ã‚º
 '
-'   2019/01/16 ’Ç‹L
-'   ‹¤—L‚Ìê‡‚Í’N‚©‚ªŠJ‚¢‚Ä‚¢‚é‚Æ•Û‘¶‚Å‚«‚¸‚ÉƒGƒ‰[‚ª”­¶‚µ‚½ŒãAƒvƒƒOƒ‰ƒ€‚ª’â~‚µ‚Ü‚·B
-'   ¡‚Í”[•i‚ªæ‚È‚Ì‚ÅA‚±‚Ì‚Ü‚Ü•ú’u‚µ‚Ü‚·B
+'   2019/01/16 è¿½è¨˜
+'   å…±æœ‰ã®å ´åˆã¯èª°ã‹ãŒé–‹ã„ã¦ã„ã‚‹ã¨ä¿å­˜ã§ããšã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå¾Œã€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ãŒåœæ­¢ã—ã¾ã™ã€‚
+'   ä»Šã¯ç´å“ãŒå…ˆãªã®ã§ã€ã“ã®ã¾ã¾æ”¾ç½®ã—ã¾ã™ã€‚
 '------------------------------------------------------------------------------------------------------------------------------
 Public Function CloseFile()
-    'ƒV[ƒgî•ñ‚ğ‰ğ•ú
-    If sheetLength > 0 Then
+    'ã‚·ãƒ¼ãƒˆæƒ…å ±ã‚’è§£æ”¾
+    If UBound(sheets) > 0 Then
         Dim i As Long
         For i = 0 To UBound(sheets)
             Set sheets(i).work = Nothing
         Next
     End If
-    'ƒuƒbƒNî•ñ‚ğ‰ğ•ú
+    'ãƒ–ãƒƒã‚¯æƒ…å ±ã‚’è§£æ”¾
     If Not book Is Nothing Then
-        '‹¤—L‚ªŠ|‚©‚Á‚Ä‚¢‚½ê‡A‚©‚¯’¼‚·
+        'å…±æœ‰ãŒæ›ã‹ã£ã¦ã„ãŸå ´åˆã€ã‹ã‘ç›´ã™
         If shareFlag Then
             'Application.DisplayAlerts = False
             book.SaveAs fileName:=book.FullName, accessMode:=xlShared
@@ -133,7 +122,7 @@ Public Function CloseFile()
     End If
 End Function
 '------------------------------------------------------------------------------------------------------------------------------
-'ƒV[ƒg–¼‚ÅƒV[ƒgõˆø‚ğæ“¾
+'ã‚·ãƒ¼ãƒˆåã§ã‚·ãƒ¼ãƒˆç´¢å¼•ã‚’å–å¾—
 '------------------------------------------------------------------------------------------------------------------------------
 Private Function GetSheetIndex(name As String) As Long
     Dim i As Long: i = 0
@@ -147,7 +136,7 @@ Private Function GetSheetIndex(name As String) As Long
 End Function
 '------------------------------------------------------------------------------------------------------------------------------
 '
-'   ƒQƒbƒ^[
+'   ã‚²ãƒƒã‚¿ãƒ¼
 '
 '------------------------------------------------------------------------------------------------------------------------------
 Public Function GetBook() As Workbook
@@ -179,11 +168,11 @@ Public Function GetSheetNameDatum(Index As Long) As String
 End Function
 
 
-'‚»‚ÌƒuƒbƒN‚Í‹¤—Lƒ‚[ƒh‚¾‚Á‚½‚Ì‚©
+'ãã®ãƒ–ãƒƒã‚¯ã¯å…±æœ‰ãƒ¢ãƒ¼ãƒ‰ã ã£ãŸã®ã‹
 Public Function GetShare() As Boolean
     GetShare = shareFlag
 End Function
-'ƒuƒbƒN‚ğ•Â‚¶‚é‚Æ‚«‹¤—Lƒ‚[ƒh‚Å•Û‘¶‚·‚é‚©
+'ãƒ–ãƒƒã‚¯ã‚’é–‰ã˜ã‚‹ã¨ãå…±æœ‰ãƒ¢ãƒ¼ãƒ‰ã§ä¿å­˜ã™ã‚‹ã‹
 Public Function SetShare(share As Boolean)
     shareFlag = share
 End Function
