@@ -1,4 +1,4 @@
-Attribute VB_Name = "Involved_Sheet"
+Option Explicit
 '##############################################################################################################################
 '
 '   シート関連
@@ -42,7 +42,7 @@ End Function
 '   book : 対象のブック（任意）
 '==============================================================================================================================
 Public Function sheetToEqualsName(ByVal sheetName As String, Optional ByVal book As Workbook = Nothing) As Worksheet
-    Set sheet = Nothing
+
     Dim searchBook As Workbook
     If book Is Nothing Then
         Set searchBook = ThisWorkbook
@@ -51,13 +51,13 @@ Public Function sheetToEqualsName(ByVal sheetName As String, Optional ByVal book
     End If
 
     Dim sheet As Worksheet
-    For Each sheet In searchBook.Sheets
+    For Each sheet In searchBook.sheets
         If StrComp(sheet.name, sheetName, vbBinaryCompare) = 0 Then
-            Set searchSheet = sheet
-            Exit For
+            Set sheetToEqualsName = sheet
+            Exit Function
         End If
     Next
-    Set sheet = Nothing
+    Set sheetToEqualsName = Nothing
 End Function
 '==============================================================================================================================
 '   新たなシートを作成。
@@ -69,7 +69,7 @@ End Function
 '==============================================================================================================================
 Public Function aNewSheet(ByVal sheetName As String, Optional ByVal book As Workbook = Nothing) As Worksheet
     Set aNewSheet = Nothing
-    If checkSheetName(sheetName) Then Exit Function
+    If Not checkSheetName(sheetName) Then Exit Function
 
     Dim addBook As Workbook
     If book Is Nothing Then
@@ -82,10 +82,10 @@ Public Function aNewSheet(ByVal sheetName As String, Optional ByVal book As Work
     Set sheet = sheetToEqualsName(sheetName, addBook)
     If Not sheet Is Nothing Then
         Set aNewSheet = sheet
-        Exit For
+        Exit Function
     End If
 
-    Set sheet = addBook.Sheets.Add()
+    Set sheet = addBook.sheets.Add()
     sheet.name = sheetName
     sheet.Activate 'アクティブ化しておいた方が見た目は良い。
     Set aNewSheet = sheet
