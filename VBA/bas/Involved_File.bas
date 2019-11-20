@@ -1,4 +1,4 @@
-Attribute VB_Name = "Involved_Process"
+Attribute VB_Name = "Involved_File"
 Option Explicit
 '##############################################################################################################################
 '

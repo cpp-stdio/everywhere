@@ -2,10 +2,10 @@ Attribute VB_Name = "Involved_Other"
 Option Explicit
 '##############################################################################################################################
 '
-'   文字列分割関連
+'   その他、よくジャンル分け不能な関数群
 '
 '   新規作成日 : 2017/08/30
-'   最終更新日 : 2019/11/05
+'   最終更新日 : 2019/11/12
 '
 '   新規作成エクセルバージョン : Office Professional Plus 2010 , 14.0.7145.5000(32ビット)
 '   最終更新エクセルバージョン : Office Professional Plus 2010 , 14.0.7145.5000(32ビット)
@@ -79,4 +79,29 @@ Public Function checkNumericalValue(ByVal text As String, ByRef value As Variant
         value = Empty
         checkNumericalValue = False
     End If
+End Function
+
+'==============================================================================================================================
+'
+'   配列が空なのかを判定する
+'   参考URL : http://www.fingeneersblog.com/1612/
+'
+'   戻り値 : 空(true),空ではない(false)
+'
+'   text  : 判定用の数値
+'   value : 数数値の入った数値型(Long,Double)のどちらか、エラーの場合はEmptyが入る
+'           最終的には型の判定が要ります。↓参考URL：例→ If VarType(value) = vbLong Then
+'           http://officetanaka.net/excel/vba/function/VarType.htm
+'
+'==============================================================================================================================
+Public Function isEmptyArray(arrayVariant As Variant) As Boolean
+    isEmptyArray = True '空だと仮定
+On Error GoTo isEmptyArray_ErrorHandler
+    'UBound関数を使用してエラーが発生するかどうかを確認
+    If UBound(arrayVariant) > 0 Then
+        isEmptyArray = False
+    End If
+    Exit Function
+isEmptyArray_ErrorHandler:
+    isEmptyArray = True
 End Function
