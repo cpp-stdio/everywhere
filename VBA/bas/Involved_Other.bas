@@ -27,11 +27,11 @@ Option Explicit
 '    それ以外,全て"0"として処理する
 '   ToBe   : 間に入れてほしい文字列「2018/04/23」「2018.04.23」等 T_Flagの値が0～2の時のみ有効
 '==============================================================================================================================
-Public Function CurrentTime(Optional T_Flag As Long = 0, Optional ToBe As String = ".") As String
+Public Function CurrentTime(Optional ByVal T_Flag As Long = 0, Optional ByVal ToBe As String = ".") As String
     Dim NowYear() As String
     Dim NowTime() As String
     NowYear = Split(Format(Date, "yyyy:mm:dd"), ":")
-    NowTime = Split(Format(time, "hh:mm:ss"), ":")
+    NowTime = Split(Format(Time, "hh:mm:ss"), ":")
     If T_Flag = 1 Then     '年から日までの日付
         CurrentTime = NowYear(0) + ToBe + NowYear(1) + ToBe + NowYear(2)
     ElseIf T_Flag = 2 Then '時から秒までの時間
@@ -64,13 +64,13 @@ End Function
 '           http://officetanaka.net/excel/vba/function/VarType.htm
 '
 '==============================================================================================================================
-Public Function checkNumericalValue(ByVal text As String, ByRef value As Variant) As Boolean
+Public Function checkNumericalValue(ByVal Text As String, ByRef value As Variant) As Boolean
 
-    text = StrConv(text, vbNarrow)
-    text = StrConv(text, vbLowerCase)
-    text = LCase(text)
-    If IsNumeric(text) Then
-        value = Val(text)
+    Text = StrConv(Text, vbNarrow)
+    Text = StrConv(Text, vbLowerCase)
+    Text = LCase(Text)
+    If IsNumeric(Text) Then
+        value = Val(Text)
         If StrComp(CStr(value), CStr(CLng(CStr(value))), vbBinaryCompare) = 0 Then
             value = CLng(CStr(value))
         End If
@@ -83,25 +83,39 @@ End Function
 
 '==============================================================================================================================
 '
-'   配列が空なのかを判定する
-'   参考URL : http://www.fingeneersblog.com/1612/
+'   文字列の中から、数字のみを抜き出す。参考URL↓
+'   https://vbabeginner.net/vba%E3%81%A7%E6%96%87%E5%AD%97%E5%88%97%E3%81%8B%E3%82%89%E6%95%B0%E5%AD%97%E3%81%AE%E3%81%BF%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B/
 '
-'   戻り値 : 空(true),空ではない(false)
+'   戻り値 : 抜き出した数字、エラーの場合は空の配列が返却されます。
 '
-'   text  : 判定用の数値
-'   value : 数数値の入った数値型(Long,Double)のどちらか、エラーの場合はEmptyが入る
-'           最終的には型の判定が要ります。↓参考URL：例→ If VarType(value) = vbLong Then
-'           http://officetanaka.net/excel/vba/function/VarType.htm
+'   text  : 数字が含まれる文字列
 '
 '==============================================================================================================================
-Public Function isEmptyArray(arrayVariant As Variant) As Boolean
-    isEmptyArray = True '空だと仮定
-On Error GoTo isEmptyArray_ErrorHandler
-    'UBound関数を使用してエラーが発生するかどうかを確認
-    If UBound(arrayVariant) > 0 Then
-        isEmptyArray = False
-    End If
-    Exit Function
-isEmptyArray_ErrorHandler:
-    isEmptyArray = True
+Public Function findNumber(ByVal Text As String) As Variant()
+    Dim reg As Object     '正規表現クラスオブジェクト
+    Dim matches As Object 'RegExp.Execute結果
+    Dim match As Object   '検索結果オブジェクト
+    Dim i As Long         'ループカウンタ
+    
+    Dim returnVariant() As Variant
+    ReDim returnVariant(0)
+    findNumber = returnVariant
+    
+    Set reg = CreateObject("VBScript.RegExp")
+    
+    '検索範囲＝文字列の最後まで検索
+    reg.Global = True
+    '検索条件＝数字を検索
+    reg.Pattern = "[0-9]"
+    '検索実行
+    Set matches = reg.Execute(Text)
+    '検索一致件数だけループ
+    For i = 0 To matches.count - 1
+        'コレクションの現ループオブジェクトを取得
+        Set match = matches.item(i)
+        '検索一致文字列
+        ReDim Preserve returnVariant(i)
+        returnVariant(i) = match.value
+    Next
+    findNumber = returnVariant
 End Function

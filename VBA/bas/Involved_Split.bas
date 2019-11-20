@@ -26,19 +26,19 @@ Option Explicit
 '       textArray = BetweenSplit(text, "<HEAD>", "</HEAD>")
 '       > ("<HTML>","<HEAD>","HOGEHOGE","</HEAD>","<HEAD>","GEHOGEHO","</HEAD>","</HTML>")
 '==============================================================================================================================
-Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, ByVal specificB As String) As String()
+Public Function BetweenSplit(ByVal Text As String, ByVal specificA As String, ByVal specificB As String) As String()
     Dim returnLength As Long: returnLength = 0
     Dim returnString() As String
     ReDim returnString(returnLength)
     'エラー対応のため戻り値を初期化
     BetweenSplit = returnString
     '空白の挿入を確認
-    If StrComp(text, "", vbBinaryCompare) = 0 Then Exit Function
+    If StrComp(Text, "", vbBinaryCompare) = 0 Then Exit Function
     If StrComp(specificA, "", vbBinaryCompare) = 0 Then Exit Function
     If StrComp(specificB, "", vbBinaryCompare) = 0 Then Exit Function
     '同じ文字列なら用途が違う為
     If StrComp(specificA, specificB, vbBinaryCompare) = 0 Then
-        BetweenSplit = Split(text, specificA)
+        BetweenSplit = Split(Text, specificA)
         Exit Function
     End If
 
@@ -46,7 +46,7 @@ Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, By
     ' "specificA" 側の処理
     '------------------------------
     Dim textArray1() As String
-    textArray1 = Split(text, specificA)
+    textArray1 = Split(Text, specificA)
     '------------------------------
     ' "specificB" 側の処理
     '------------------------------
@@ -90,6 +90,7 @@ Public Function BetweenSplit(ByVal text As String, ByVal specificA As String, By
     Next count1
     BetweenSplit = returnString
 End Function
+
 '==============================================================================================================================
 '   Split関数の複数版
 '

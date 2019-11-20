@@ -45,7 +45,7 @@ Public Function readFile(ByVal fileName As String, Optional ByVal characterCord 
 
 On Error GoTo readFile_ErrorHandler
     With CreateObject("ADODB.Stream")
-        .Type = 2   'adTypeText
+        .type = 2   'adTypeText
         .Charset = characterCord
         .Open
         .LoadFromFile (fileName)

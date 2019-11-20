@@ -26,7 +26,7 @@ Public Function BookToEqualsName(ByVal bookName As String) As Workbook
 
     Dim book As Workbook
     For Each book In Workbooks
-        If StrComp(book.Name, bookName, vbBinaryCompare) = 0 Then
+        If StrComp(book.name, bookName, vbBinaryCompare) = 0 Then
             Set BookToEqualsName = book
             Exit Function
         End If
